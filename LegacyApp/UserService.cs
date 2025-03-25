@@ -27,7 +27,7 @@ namespace LegacyApp
 
             var clientRepository = new ClientRepository();
             var client = clientRepository.GetById(clientId);
-
+            var Criminal = new CriminalsList();
             var user = new User
             {
                 Client = client,
@@ -62,6 +62,11 @@ namespace LegacyApp
 
             if (user.HasCreditLimit && user.CreditLimit < 500)
             {
+                return false;
+            }
+            if(Criminal.CzyOsobaJestPoszukiwana(user.FirstName, user.LastName))
+            {
+                Console.WriteLine($"UWAGA! {user.FirstName} {user.LastName} jest na liście poszukiwanych!");
                 return false;
             }
 
